@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Seyed Abdullah | IT Portfolio</title>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap");
+
+    :root {
+      --bg: #080d19;
+      --panel: #101a2c;
+      --red: #ff304f;
+      --blue: #4ba3ff;
+      --text: #eef3ff;
+      --muted: #a9b6ce;
+      --border: rgba(255, 255, 255, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse at 10% 10%, #182d55 0%, transparent 50%),
+        radial-gradient(ellipse at 100% 45%, #351322 0%, transparent 45%);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid var(--blue);
+      outline-offset: 6px;
+    }
+
+    ::selection {
+      background: var(--red);
+      color: white;
+    }
+
+    /* Animated background and cursor spiders */
+    #web-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .container {
+      width: min(1100px, calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(8, 13, 25, 0.9);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: 1.7rem;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+
+    .brand span {
+      color: var(--red);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--red);
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 690px;
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      align-items: center;
+      gap: 40px;
+      padding-block: 90px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 16px var(--red);
+      animation: pulse 2s infinite;
+    }
+
+    h1, h2, h3, p {
+      margin-top: 0;
+    }
+
+    h1, h2 {
+      font-family: "Barlow Condensed", Impact, sans-serif;
+      text-transform: uppercase;
+      line-height: 0.95;
+    }
+
+    h1 {
+      font-size: clamp(4.5rem, 9vw, 8rem);
+      letter-spacing: -2px;
+      margin-block: 24px;
+    }
+
+    h1 span {
+      display: block;
+      color: var(--red);
+      text-shadow: 5px 5px 0 #451528;
+    }
+
+    .hero-copy {
+      max-width: 510px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .hero-copy strong {
+      color: white;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 48px;
+      padding: 12px 23px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .button:hover {
+      transform: translateY(-4px);
+      background: #1a2c48;
+    }
+
+    .button-primary {
+      background: var(--red);
+      border-color: var(--red);
+      color: white;
+      box-shadow: 0 8px 30px #ff304f26;
+    }
+
+    .button-primary:hover {
+      background: #dc1f3d;
+    }
+
+    /* Original spider emblem */
+    .emblem-wrap {
+      position: relative;
+      display: grid;
+      place-items: center;
+      aspect-ratio: 1;
+      width: 100%;
+      max-width: 380px;
+      justify-self: center;
+    }
+
+    .emblem-wrap::before,
+    .emblem-wrap::after {
+      content: "";
+      position: absolute;
+      border: 1px solid #4ba3ff40;
+      border-radius: 50%;
+      inset: 5%;
+      animation: orbit 25s linear infinite;
+    }
+
+    .emblem-wrap::before {
+      border-top: 2px solid var(--red);
+      border-bottom: 2px solid var(--red);
+    }
+
+    .emblem-wrap::after {
+      inset: 17%;
+      border-style: dashed;
+      animation-direction: reverse;
+    }
+
+    .spider-emblem {
+      width: 65%;
+      color: var(--red);
+      filter: drop-shadow(0 0 25px #ff304f55);
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .emblem-label {
+      position: absolute;
+      bottom: 0;
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      color: var(--muted);
+    }
+
+    /* Content */
+    section {
+      padding-block: 65px;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .section-number {
+      font-size: 0.8rem;
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: clamp(2.7rem, 6vw, 4rem);
+      margin-bottom: 0;
+      letter-spacing: 0.5px;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      margin-top: -10px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      position: relative;
+      background: linear-gradient(135deg, #142139d9, #0c1424ee);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 30px;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #ff304f70;
+    }
+
+    .about-card {
+      border-left: 3px solid var(--red);
+      max-width: 900px;
+    }
+
+    .about-card p {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .about-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .skill {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #101a2c99;
+      font-size: 0.9rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .skill:hover {
+      border-color: var(--blue);
+      background: #162742;
+    }
+
+    .skill-code {
+      color: var(--red);
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+
+    .project-card {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 35px;
+      align-items: center;
+    }
+
+    .project-art {
+      min-height: 230px;
+      display: grid;
+      place-items: center;
+      background:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 18px,
+          #ffffff05 18px,
+          #ffffff05 19px
+        ),
+        linear-gradient(135deg, #193b68, #4c1829);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .project-art span {
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: 5rem;
+      color: white;
+      text-shadow: 4px 4px 0 var(--red);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 9px;
+      margin: 0 5px 9px 0;
+      color: var(--blue);
+      background: #4ba3ff12;
+      border: 1px solid #4ba3ff30;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      line-height: 1.35;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+    }
+
+    .project-card p,
+    .education-item p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .timeline {
+      border-left: 1px solid #4ba3ff55;
+      margin-left: 9px;
+      padding-left: 30px;
+    }
+
+    .education-item {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .education-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .education-item::before {
+      content: "";
+      position: absolute;
+      top: 30px;
+      left: -37px;
+      width: 11px;
+      height: 11px;
+      background: var(--red);
+      border-radius: 50%;
+      box-shadow: 0 0 15px #ff304f66;
+    }
+
+    .education-item small {
+      display: block;
+      margin-bottom: 9px;
+      color: var(--blue);
+      font-size: 0.68rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .contact-card {
+      padding: 40px;
+      border-top: 3px solid var(--red);
+    }
+
+    .contact-card h3 {
+      font-family: "Barlow Condensed", sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      text-transform: uppercase;
+    }
+
+    .contact-card p {
+      color: var(--muted);
+    }
+
+    .email-link {
+      display: inline-block;
+      margin-top: 10px;
+      color: var(--blue);
+      overflow-wrap: anywhere;
+      text-underline-offset: 5px;
+    }
+
+    footer {
+      padding: 30px 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    footer span {
+      color: var(--red);
+    }
+
+    /* Content stays visible when JavaScript is disabled. */
+    .reveal {
+      animation: enter 0.7s ease both;
+    }
+
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-18px) rotate(3deg); }
+    }
+
+    @keyframes orbit {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      50% { opacity: 0.45; }
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-block: 65px;
+        gap: 35px;
+      }
+
+      .emblem-wrap {
+        max-width: 240px;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .project-card {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-inner {
+        flex-wrap: wrap;
+        padding-block: 14px;
+        gap: 8px;
+      }
+
+      .nav-links {
+        gap: 16px;
+      }
+
+      section {
+        padding-block: 45px;
+      }
+
+      .card,
+      .contact-card {
+        padding: 24px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links a {
+        font-size: 0.75rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      #web-canvas {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="web-canvas" aria-hidden="true"></canvas>
+
+  <nav aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a class="brand" href="#home" aria-label="Abdullah home">
+        A<span>.</span>M
+      </a>
+
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact ↗</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <header class="hero" id="home">
+      <div class="reveal">
+        <div class="eyebrow">
+          <span class="status-dot" aria-hidden="true"></span>
+          Available for job opportunities
+        </div>
+
+        <h1>Seyed <span>Abdullah.</span></h1>
+
+        <p class="hero-copy">
+          Your friendly neighbourhood <strong>IT enthusiast.</strong>
+          Currently studying an HND in Information Technology
+          and building the skills to make an impact.
+        </p>
+
+        <div class="actions">
+          <a class="button button-primary" href="#projects">
+            Explore my work ↗
+          </a>
+          <a class="button" href="#contact">
+            Let's connect
+          </a>
+        </div>
+      </div>
+
+      <div class="emblem-wrap" aria-hidden="true">
+        <svg class="spider-emblem" viewBox="0 0 240 260">
+          <g
+            fill="none"
+            stroke="currentColor"
+            stroke-width="9"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M108 106 L66 72 L54 24"/>
+            <path d="M104 122 L40 99 L18 53"/>
+            <path d="M105 143 L43 159 L17 207"/>
+            <path d="M111 160 L74 196 L60 244"/>
+            <path d="M132 106 L174 72 L186 24"/>
+            <path d="M136 122 L200 99 L222 53"/>
+            <path d="M135 143 L197 159 L223 207"/>
+            <path d="M129 160 L166 196 L180 244"/>
+          </g>
+          <ellipse cx="120" cy="109" rx="19" ry="24" fill="currentColor"/>
+          <path
+            d="M120 124 C82 143 99 182 120 205
+               C141 182 158 143 120 124Z"
+            fill="currentColor"
+          />
+        </svg>
+        <span class="emblem-label">CURIOSITY IS MY SUPERPOWER</span>
+      </div>
+    </header>
+
+    <section id="about">
+
+      <div class="section-heading">
+        <span class="section-number">01 /</span>
+        <h2>Behind the screen</h2>
+      </div>
+
+      <div class="card about-card">
+        <p>
+          Hey, I'm Abdullah! 👋 IT newbie with a curious mind
+          about the workings of technology. My journey started
+          at Beaconhall, took me through a Diploma in Hardware
+          and Networking at Turnkey IT Campus, and continues
+          with my HND at ANC College.
+        </p>
+        <p>
+          I enjoy figuring things out, picking up new skills,
+          and turning “How does this work?” into “I made it work!”
+        </p>
+        <p>
+          I'm looking for a job opportunity where I can put my
+          knowledge to use, learn from a great team, and take
+          my first steps in the IT world. 🚀
+        </p>
+      </div>
+    </section>
+
+    <section id="skills">
+
+  <div class="section-heading">
+    <span class="section-number">02 /</span>
+    <h2>My toolkit</h2>
+  </div>
+
+  <p class="section-intro">
+    Skills in progress. Curiosity fully charged.
+  </p>
+
+  <ul class="skills-grid">
+    <li class="skill">
+      <span class="skill-code" aria-hidden="true">&lt;/&gt;</span>
+      HTML and CSS Basics
+    </li>
+
+    <li class="skill">
+      <span class="skill-code" aria-hidden="true">{ }</span>
+      Basic Java Programming
+    </li>
+
+    <li class="skill">
+      <span class="skill-code" aria-hidden="true">NET</span>
+      Networking Fundamentals
+    </li>
+
+    <li class="skill">
+      <span class="skill-code" aria-hidden="true">DEV</span>
+      Basic Software Programming Skills
+    </li>
+
+    <li class="skill">
+      <span class="skill-code" aria-hidden="true">SEC</span>
+      Cybersecurity Basics
+    </li>
+
+    <li class="skill">
+      <span class="skill-code" aria-hidden="true">AZ</span>
+      Microsoft Azure Basics
+    </li>
+
+    <li class="skill">
+      <span class="skill-code" aria-hidden="true">+</span>
+      Teamwork
+    </li>
+  </ul>
+</section>
+
+<section id="projects">
+
+  <div class="section-heading">
+    <span class="section-number">03 /</span>
+    <h2>My web of projects</h2>
+  </div>
+
+  <p class="section-intro">
+    From my corner of the web to the checkout counter.
+  </p>
+
+  <article class="card project-card">
+    <div class="project-art" aria-hidden="true">
+      <span>&lt;AM /&gt;</span>
+    </div>
+
+    <div>
+      <span class="tag">HTML</span>
+      <span class="tag">CSS</span>
+      <span class="tag">JavaScript</span>
+      <span class="tag">In progress</span>
+
+      <h3>Personal Portfolio Website</h3>
+
+      <p>
+        Every hero needs an origin story—this is mine!
+        A Spider-Man-inspired portfolio with animated webs,
+        floating spiders, and a little personality.
+        It's my space to showcase my skills, share my projects,
+        and document my journey into IT.
+        With every update comes a new lesson—and occasionally
+        a bug that needs catching!
+      </p>
+
+      <div class="actions">
+        <a class="button" href="#home">
+          Explore this project ↑
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <article class="card project-card" style="margin-top: 24px;">
+    <div class="project-art" aria-hidden="true">
+      <span>POS</span>
+    </div>
+
+    <div>
+      <span class="tag">Freelance</span>
+      <span class="tag">Point of Sale</span>
+
+      <h3>Point of Sale — My Checkout Side Hustle</h3>
+
+      <p>
+        My IT journey doesn't stop at the classroom!
+        I also take on freelance point-of-sale work,
+        putting my knowledge to use in a business setting.
+        It's an opportunity to understand client needs,
+        tackle practical challenges, and see how technology
+        keeps everyday business moving.
+      </p>
+    </div>
+  </article>
+</section>
+
+<section id="education">
+
+  <div class="section-heading">
+    <span class="section-number">04 /</span>
+    <h2>The origin story</h2>
+  </div>
+
+  <div class="timeline">
+    <article class="card education-item">
+      <small>Currently studying</small>
+      <h3>Higher National Diploma in IT Software Engineer(HND)</h3>
+      <p>ANC College</p>
+    </article>
+
+    <article class="card education-item">
+      <small>Completed</small>
+      <h3>Pearson Advanced Diploma in Hardware and Networking And Foundation</h3>
+      <p>Turnkey IT Campus</p>
+    </article>
+
+    <article class="card education-item">
+      <small>School education</small>
+      <h3>GCE Ordinary Level (O/Level)</h3>
+      <p>Beaconhall International School</p>
+    </article>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-heading">
+    <span class="section-number">05 /</span>
+    <h2>Send a signal</h2>
+  </div>
+
+  <div class="card contact-card">
+    <span class="tag">Open to opportunities</span>
+
+    <h3>Let's connect the web.</h3>
+
+    <p>
+      Have a job opportunity, a freelance project,
+      or an interesting idea? Send a signal—
+      I'd love to hear from you!
+    </p>
+
+    <h4>Gmail</h4>
+    <a
+      class="email-link"
+      href="mailto:abdullahmoulana79@gmail.com"
+    >
+      abdullahmoulana79@gmail.com
+    </a>
+
+    <h4>Mobile</h4>
+    <!-- Replace the number in BOTH places below. -->
+    <!-- Example: href="tel:+94771234567" -->
+    <a class="email-link" href="tel:076-409-3784, 072-490-1779">
+      076-409-3784, 072-490-1779
+    </a>
+
+    <h4>Address / Location</h4>
+    <address style="font-style: normal; color: var(--muted);">
+      Dehiwala Mount-Lavinia, Sri Lanka
+    </address>
+
+    <div class="actions">
+      <a
+        class="button button-primary"
+        href="mailto:abdullahmoulana79@gmail.com"
+      >
+        Email me ↗
+      </a>
+
+      <a
+        class="button"
+        href="https://www.linkedin.com/in/abdullah-moulana-b303072ab"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        LinkedIn ↗
+      </a>
+
+      <!-- Replace YOUR_USERNAME without adding @. -->
+      <a
+        class="button"
+        href="https://www.instagram.com/_abdu.offl_?srtk=bjVzYWcxZGhtNHA4/_Abdu.offl_/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Instagram ↗
+      </a>
+    </div>
+  </div>
+</section>
+  </main>
+
+  <footer>
+    <p>
+      &copy; 2026 Abdullah. All rights reserved.
+      <br>
+      Built with curiosity <span>•</span> Powered by persistence
+    </p>
+  </footer>
+
+  <script>
+    const canvas = document.getElementById("web-canvas");
+    const ctx = canvas.getContext("2d");
+    const motionPreference = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+    let width = 0;
+    let height = 0;
+    let animationId = null;
+    let previousTime = 0;
+    let lastSpawn = 0;
+    let spiders = [];
+    let points = [];
+
+    const pointer = {
+      x: 0,
+      y: 0,
+      active: false
+    };
+
+    function resizeCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+      points = Array.from({ length: 26 }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.18,
+        vy: (Math.random() - 0.5) * 0.18
+      }));
+    }
+
+    function spawnSpider(x, y, time) {
+      if (time - lastSpawn < 85) return;
+
+      lastSpawn = time;
+
+      spiders.push({
+        x,
+        y,
+        vx: (Math.random() - 0.5) * 1.8,
+        vy: -0.5 - Math.random() * 1.2,
+        age: 0,
+        life: 1000 + Math.random() * 500,
+        size: 3 + Math.random() * 3,
+        phase: Math.random() * Math.PI * 2,
+        color: Math.random() > 0.5 ? "#ff405b" : "#63b4ff",
+        originX: x,
+        originY: y
+      });
+
+      // Keep the effect lightweight during fast mouse movement.
+      if (spiders.length > 24) spiders.shift();
+    }
+
+    function drawSpider(spider, time) {
+      const opacity = 1 - spider.age / spider.life;
+
+      ctx.save();
+      ctx.globalAlpha = opacity;
+
+      // A fine silk thread trails back to its starting point.
+      ctx.strokeStyle = "rgba(190, 214, 255, 0.24)";
+      ctx.lineWidth = 0.6;
+      ctx.beginPath();
+      ctx.moveTo(spider.originX, spider.originY);
+      ctx.lineTo(spider.x, spider.y);
+      ctx.stroke();
+
+      ctx.translate(spider.x, spider.y);
+      ctx.rotate(Math.sin(time * 0.002 + spider.phase) * 0.3);
+
+      ctx.strokeStyle = spider.color;
+      ctx.fillStyle = spider.color;
+      ctx.lineWidth = 1;
+      ctx.lineCap = "round";
+
+      // Four legs on each side.
+      for (const side of [-1, 1]) {
+        for (let leg = 0; leg < 4; leg++) {
+          const startY = (leg - 1.5) * spider.size * 0.45;
+          const bendY = (leg - 1.5) * spider.size * 1.3;
+          const wiggle = Math.sin(
+            time * 0.009 + leg + spider.phase
+          ) * 1.5;
+
+          ctx.beginPath();
+          ctx.moveTo(side * spider.size * 0.3, startY);
+          ctx.lineTo(side * spider.size * 1.5, bendY);
+          ctx.lineTo(
+            side * spider.size * 2.4,
+            bendY + (leg < 2 ? -3 : 3) + wiggle
+          );
+          ctx.stroke();
+        }
+      }
+
+      ctx.beginPath();
+      ctx.ellipse(
+        0, spider.size * 0.4,
+        spider.size * 0.65, spider.size,
+        0, 0, Math.PI * 2
+      );
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(
+        0, -spider.size * 0.7,
+        spider.size * 0.48,
+        0, Math.PI * 2
+      );
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    function drawWeb(delta) {
+      for (const point of points) {
+        point.x += point.vx * delta;
+        point.y += point.vy * delta;
+
+        if (point.x < 0 || point.x > width) point.vx *= -1;
+        if (point.y < 0 || point.y > height) point.vy *= -1;
+      }
+
+      for (let i = 0; i < points.length; i++) {
+        for (let j = i + 1; j < points.length; j++) {
+          const distance = Math.hypot(
+            points[i].x - points[j].x,
+            points[i].y - points[j].y
+          );
+
+          if (distance < 160) {
+            ctx.strokeStyle =
+              `rgba(100, 160, 240, ${0.1 * (1 - distance / 160)})`;
+
+            ctx.lineWidth = 0.7;
+            ctx.beginPath();
+            ctx.moveTo(points[i].x, points[i].y);
+            ctx.lineTo(points[j].x, points[j].y);
+            ctx.stroke();
+          }
+        }
+
+        if (pointer.active) {
+          const distance = Math.hypot(
+            points[i].x - pointer.x,
+            points[i].y - pointer.y
+          );
+
+          if (distance < 180) {
+            ctx.strokeStyle =
+              `rgba(255, 65, 90, ${0.25 * (1 - distance / 180)})`;
+
+            ctx.beginPath();
+            ctx.moveTo(points[i].x, points[i].y);
+            ctx.lineTo(pointer.x, pointer.y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate(time) {
+      const elapsed = previousTime
+        ? Math.min(time - previousTime, 40)
+        : 16.67;
+
+      previousTime = time;
+      const delta = elapsed / 16.67;
+
+      ctx.clearRect(0, 0, width, height);
+      drawWeb(delta);
+
+      spiders = spiders.filter(spider => {
+        spider.age += elapsed;
+        spider.x += spider.vx * delta;
+        spider.y += spider.vy * delta;
+        spider.x += Math.sin(
+          time * 0.003 + spider.phase
+        ) * 0.35 * delta;
+
+        if (spider.age >= spider.life) return false;
+
+        drawSpider(spider, time);
+        return true;
+      });
+
+      animationId = requestAnimationFrame(animate);
+    }
+
+    function updateAnimation() {
+      if (animationId !== null) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }
+
+      previousTime = 0;
+
+      if (!motionPreference.matches && !document.hidden) {
+        animationId = requestAnimationFrame(animate);
+      } else {
+        spiders = [];
+        ctx.clearRect(0, 0, width, height);
+      }
+    }
+
+    window.addEventListener("pointermove", event => {
+      if (motionPreference.matches || event.pointerType === "touch") {
+        return;
+      }
+
+      pointer.x = event.clientX;
+      pointer.y = event.clientY;
+      pointer.active = true;
+
+      spawnSpider(pointer.x, pointer.y, performance.now());
+    }, { passive: true });
+
+    document.documentElement.addEventListener("pointerleave", () => {
+      pointer.active = false;
+    });
+
+    window.addEventListener("blur", () => {
+      pointer.active = false;
+    });
+
+    window.addEventListener("resize", resizeCanvas);
+    document.addEventListener("visibilitychange", updateAnimation);
+    motionPreference.addEventListener("change", updateAnimation);
+
+    resizeCanvas();
+    updateAnimation();
+  </script>
+</body>
+</html>
